@@ -1,6 +1,18 @@
 sudo: required
 services:
   - docker
+
 script:
   - docker build -t henrykhosasih/node .
   - docker images henrykhosasih/node
+
+before_deploy:
+  provider: docker
+  username:
+    secure: HrJFpX4TIWb4HKtsz8QwPMPZ/anq6Q5rnvYwx04Ehig=
+
+deploy:
+  provider: script
+  script: docker push henrykhosasih/node
+  on:
+    branch: master
